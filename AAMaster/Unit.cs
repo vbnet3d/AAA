@@ -18,6 +18,28 @@ namespace AAMaster
 
         public bool Offense { get; set; }
         public int Margin { get; set; }
+
+        public Dictionary<int, int> Rolls = new Dictionary<int, int>()
+        {
+            {1,0 },
+            {2,0 },
+            {3,0 },
+            {4,0 },
+            {5,0 },
+            {6,0 },
+        };
+
+        public int Hits { get; set; }
+
+        public int Misses { get; set; }
+
+        public double HitPercent
+        {
+            get
+            {
+                return (double)Hits / (Hits + Misses);
+            }
+        }
     }
 
     public static class Type
@@ -64,12 +86,30 @@ namespace AAMaster
         }
     }
 
+    public static class Extensions
+    {
+        public static bool Only(this IEnumerable<Unit> list, params string[] unitnames)
+        {
+            if (list.Any(x => !unitnames.Contains(x.Name)))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
+
     public class BattleResult
     {
         public int AttackHits { get; set; }
         public int DefendHits { get; set; }
 
         public int Rounds { get; set; }
+
+        public List<int> AttackRolls = new List<int>();
+        public List<int> DefendRolls = new List<int>();
     }
 
     public static class BattleCalculator
@@ -80,7 +120,12 @@ namespace AAMaster
             if (rand == null)
                 rand = new Random();
 
-            return rand.Next(1, 7);
+            int value = rand.Next(1, 7);
+
+            if (Die.Record)
+                Die.Rolls[value]++;
+
+            return value;
         }
 
         private static void RemoveUnitType(Unit[] units, string name)
@@ -98,7 +143,7 @@ namespace AAMaster
             while (attacker.Length > 0 && defender.Length > 0 && UnitsThatCanFight(attacker, defender) && b.Rounds < 20)
             {
                 // Battleships and Destroyers only give supporting bombardment on the first round.
-                if (b.Rounds == 1)
+                if (b.Rounds >= 1)
                 {
                     if (attacker.Any(x => x.Name == "Battleship" || x.Name == "Destroyer") && attacker.Any(x => x.Name == "Infantry" || x.Name == "Tank"))
                     {
@@ -281,6 +326,17 @@ namespace AAMaster
         }
 
         /// <summary>
+        /// Ignore unit types - everything hits every time.
+        /// </summary>
+        /// <param name="units"></param>
+        /// <param name="attacking"></param>
+        /// <returns></returns>
+        public static int Bloodbath(Unit[] units, bool attacking)
+        {
+            return units.Length;
+        }
+
+        /// <summary>
         /// Use probability with a slight variability. Use for a reasonably predictable set of outcomes.
         /// </summary>
         /// <param name="units"></param>
@@ -350,8 +406,158 @@ namespace AAMaster
                 }
             }
             return hits;
+        }
+
+        public static BattleResult RPSFullBattle(Unit[] attacker, Unit[] defender)
+        {
+            var b = new BattleResult(); 
+
+            while (attacker.Length > 0 && defender.Length > 0 && UnitsThatCanFight(attacker, defender) && b.Rounds < 20)
+            {
+                // Battleships and Destroyers only give supporting bombardment on the first round.
+                if (b.Rounds >= 1)
+                {
+                    if (attacker.Any(x => x.Name == "Battleship" || x.Name == "Destroyer") && attacker.Any(x => x.Name == "Infantry" || x.Name == "Tank"))
+                    {
+                        RemoveUnitType(attacker, "Battleship");
+                        RemoveUnitType(attacker, "Destroyer");
+                    }
+                }
+
+                BattleResult r = RPSBattleRound(attacker, defender);                
+
+                defender = RemoveUnits(defender, r.AttackHits, false, false, false, false);                
+                attacker = RemoveUnits(attacker, r.DefendHits, false, false, false, false);
+
+                b.AttackHits += r.AttackHits;
+                b.DefendHits += r.DefendHits;
+                b.Rounds++;
+            }
+
+            return b;
+        }
+        
+        public static BattleResult RPSBattleRound(Unit[] Attacker, Unit[] Defender)
+        {
+            if (rand == null)
+                rand = new Random();
+
+            BattleResult r = new BattleResult();
+
+            Attacker = Attacker.Select(x => x).OrderBy(x => rand.Next()).ToArray();
+            Defender = Defender.Select(x => x).OrderBy(x => rand.Next()).ToArray();
+
+            for (int i = 0; i < Attacker.Length; i++)
+            {
+                if (Defender.Length > i)
+                {
+                    if (RPSAttack(Attacker[i], Defender[i]))
+                    {
+                        r.AttackHits++;
+                    }
+                    else
+                    {
+                        r.DefendHits++;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return r;  
+        }
+        
+        private static bool RPSAttack(Unit Attacker, Unit Defender)
+        {
+            int atk = Attacker.Attack * Attacker.Hits;
+            int def = Defender.Defend * Defender.Hits;
+
+            while (atk > 0 && def > 0)
+            {
+                int r = RPS.Check(RPS.Get(), RPS.Get());
+
+                if (r > 0)
+                    Die.Rolls[r]++;
+                else
+                    Die.Rolls[6]++;
+
+                if (r == 1)
+                    def--;
+                else if (r == 2)
+                    atk--;
+            }
+
+            return atk > def;
         }   
     }
+
+    public enum RockPaperScissors
+    {
+        Rock, Paper, Scissors
+    }
+
+    public static class RPS
+    {
+        static Random rand = new Random(5432198);
+        public static RockPaperScissors Get()
+        {
+            return (RockPaperScissors)(rand.Next(0, 300) / 100);
+        }
+
+        /// <summary>
+        /// Check to see who won. Returns 0 for draw, 1 for first, 2 for second.
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <returns></returns>
+        public static int Check(RockPaperScissors first, RockPaperScissors second)
+        {                        
+            if (first == second)
+            {
+                return 0; 
+            } 
+            
+            if (first == RockPaperScissors.Rock)
+            {
+                if (second == RockPaperScissors.Paper)
+                {
+                    return 2;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+
+            if (first == RockPaperScissors.Paper)
+            {
+                if (second == RockPaperScissors.Scissors)
+                {
+                    return 2;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+
+            if (first == RockPaperScissors.Scissors)
+            {
+                if (second == RockPaperScissors.Rock)
+                {
+                    return 2;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
+
+            return 0;
+        }
+    }       
+
     public static class UnitDefinitions
     {
         public static Unit[] Multiple(Unit u, decimal Qty)
@@ -359,7 +565,7 @@ namespace AAMaster
             List<Unit> l = new List<Unit>();
             for (int i = 0; i < Qty; i++)
             {
-                l.Add(new Unit(u.Name, u.Attack, u.Defend, u.Cost, u.Hits, u.Rolls));
+                l.Add(new Unit(u.Name, u.Attack, u.Defend, u.Cost, u.Hits, u.Rolls, u.Movement));
             }
             return l.ToArray();
         }
@@ -368,7 +574,7 @@ namespace AAMaster
         {
             get
             {
-                return new Unit("Infantry", 1, 2, 3, 1, 1);
+                return new Unit("Infantry", 1, 2, 3, 1, 1, 1);
             }
         }
 
@@ -376,7 +582,7 @@ namespace AAMaster
         {
             get
             {
-                return new Unit("Tank", 3, 3, 6, 1, 1);
+                return new Unit("Tank", 3, 3, 6, 1, 1, 2);
             }
         }
 
@@ -384,7 +590,7 @@ namespace AAMaster
         {
             get
             {
-                return new Unit("Fighter", 3, 4, 10, 1, 1);
+                return new Unit("Fighter", 3, 4, 10, 1, 1, 4);
             }
         }
 
@@ -392,7 +598,7 @@ namespace AAMaster
         {
             get
             {
-                return new Unit("Bomber", 4, 1, 12, 1, 1);
+                return new Unit("Bomber", 4, 1, 12, 1, 1, 6);
             }
         }
 
@@ -400,7 +606,7 @@ namespace AAMaster
         {
             get
             {
-                return new Unit("Submarine", 2, 1, 6, 1, 1);
+                return new Unit("Submarine", 2, 1, 6, 1, 1, 2);
             }
         }
 
@@ -408,7 +614,7 @@ namespace AAMaster
         {
             get
             {
-                return new Unit("Destroyer", 2, 2, 6, 1, 1);
+                return new Unit("Destroyer", 2, 2, 8, 1, 1, 2);
             }
         }
 
@@ -416,7 +622,7 @@ namespace AAMaster
         {
             get
             {
-                return new Unit("Battleship", 4, 4, 16, 2, 1);
+                return new Unit("Battleship", 4, 4, 16, 2, 1, 2);
             }
         }
 
@@ -424,7 +630,7 @@ namespace AAMaster
         {
             get
             {
-                return new Unit("Bomber", 1, 2, 12, 1, 1);
+                return new Unit("Carrier", 1, 2, 12, 1, 1, 2);
             }
         }
     }
@@ -444,7 +650,9 @@ namespace AAMaster
 
         public int Rolls { get; set; }
 
-        public Unit(string name, int atk, int def, int cost, int hits, int rolls)
+        public int Movement { get; set; } = 1;
+
+        public Unit(string name, int atk, int def, int cost, int hits, int rolls, int movement)
         {
             Name = name;
             Attack = atk;
@@ -452,6 +660,7 @@ namespace AAMaster
             Cost = cost;
             Hits = hits;
             Rolls = rolls;
+            Movement = movement;
         }
     }
 }

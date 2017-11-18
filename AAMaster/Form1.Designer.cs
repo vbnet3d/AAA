@@ -31,6 +31,17 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button8 = new System.Windows.Forms.Button();
+            this.lblDefendPower = new System.Windows.Forms.Label();
+            this.label89 = new System.Windows.Forms.Label();
+            this.lblAttackPower = new System.Windows.Forms.Label();
+            this.label88 = new System.Windows.Forms.Label();
+            this.lblDefenderIPCs = new System.Windows.Forms.Label();
+            this.label87 = new System.Windows.Forms.Label();
+            this.lblAttackerIPC = new System.Windows.Forms.Label();
+            this.label85 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.btnPredict = new System.Windows.Forms.Button();
             this.lblRounds = new System.Windows.Forms.Label();
             this.chkFullBattle = new System.Windows.Forms.CheckBox();
@@ -234,11 +245,20 @@
             this.label34 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label84 = new System.Windows.Forms.Label();
+            this.cmbFocus = new System.Windows.Forms.ComboBox();
+            this.lblPurchase = new System.Windows.Forms.Label();
+            this.label83 = new System.Windows.Forms.Label();
+            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.radBloodbath = new System.Windows.Forms.RadioButton();
             this.rdoNoLuck = new System.Windows.Forms.RadioButton();
             this.rdoLowLuck = new System.Windows.Forms.RadioButton();
             this.rdoDice = new System.Windows.Forms.RadioButton();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.numTarget = new System.Windows.Forms.NumericUpDown();
+            this.cmbOp = new System.Windows.Forms.ComboBox();
             this.flowDice = new System.Windows.Forms.FlowLayoutPanel();
             this.label82 = new System.Windows.Forms.Label();
             this.numDice = new System.Windows.Forms.NumericUpDown();
@@ -253,10 +273,10 @@
             this.sneakSubs = new System.Windows.Forms.NumericUpDown();
             this.button2 = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.DiceLabel = new AAMaster.DiceLabel();
             this.lblStats = new System.Windows.Forms.Label();
             this.fade = new System.Windows.Forms.Timer(this.components);
             this.fade2 = new System.Windows.Forms.Timer(this.components);
-            this.button6 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -366,8 +386,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.ratnk)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.rainf)).BeginInit();
             this.tabPage4.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numTarget)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDice)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -385,11 +408,21 @@
             this.tabControl1.Location = new System.Drawing.Point(4, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(739, 399);
+            this.tabControl1.Size = new System.Drawing.Size(739, 401);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button8);
+            this.tabPage1.Controls.Add(this.lblDefendPower);
+            this.tabPage1.Controls.Add(this.label89);
+            this.tabPage1.Controls.Add(this.lblAttackPower);
+            this.tabPage1.Controls.Add(this.label88);
+            this.tabPage1.Controls.Add(this.lblDefenderIPCs);
+            this.tabPage1.Controls.Add(this.label87);
+            this.tabPage1.Controls.Add(this.lblAttackerIPC);
+            this.tabPage1.Controls.Add(this.label85);
+            this.tabPage1.Controls.Add(this.button7);
             this.tabPage1.Controls.Add(this.button6);
             this.tabPage1.Controls.Add(this.btnPredict);
             this.tabPage1.Controls.Add(this.lblRounds);
@@ -404,10 +437,123 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(731, 373);
+            this.tabPage1.Size = new System.Drawing.Size(731, 375);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Battle";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.Color.Transparent;
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.ForeColor = System.Drawing.Color.Black;
+            this.button8.Location = new System.Drawing.Point(179, 344);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.TabIndex = 20;
+            this.button8.Text = "RPS";
+            this.button8.UseVisualStyleBackColor = false;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // lblDefendPower
+            // 
+            this.lblDefendPower.AutoSize = true;
+            this.lblDefendPower.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDefendPower.ForeColor = System.Drawing.Color.Navy;
+            this.lblDefendPower.Location = new System.Drawing.Point(677, 261);
+            this.lblDefendPower.Name = "lblDefendPower";
+            this.lblDefendPower.Size = new System.Drawing.Size(16, 16);
+            this.lblDefendPower.TabIndex = 19;
+            this.lblDefendPower.Text = "0";
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Location = new System.Drawing.Point(640, 263);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(40, 13);
+            this.label89.TabIndex = 18;
+            this.label89.Text = "Power:";
+            // 
+            // lblAttackPower
+            // 
+            this.lblAttackPower.AutoSize = true;
+            this.lblAttackPower.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAttackPower.ForeColor = System.Drawing.Color.Navy;
+            this.lblAttackPower.Location = new System.Drawing.Point(677, 116);
+            this.lblAttackPower.Name = "lblAttackPower";
+            this.lblAttackPower.Size = new System.Drawing.Size(16, 16);
+            this.lblAttackPower.TabIndex = 17;
+            this.lblAttackPower.Text = "0";
+            // 
+            // label88
+            // 
+            this.label88.AutoSize = true;
+            this.label88.Location = new System.Drawing.Point(640, 118);
+            this.label88.Name = "label88";
+            this.label88.Size = new System.Drawing.Size(40, 13);
+            this.label88.TabIndex = 16;
+            this.label88.Text = "Power:";
+            // 
+            // lblDefenderIPCs
+            // 
+            this.lblDefenderIPCs.AutoSize = true;
+            this.lblDefenderIPCs.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDefenderIPCs.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblDefenderIPCs.Location = new System.Drawing.Point(677, 241);
+            this.lblDefenderIPCs.Name = "lblDefenderIPCs";
+            this.lblDefenderIPCs.Size = new System.Drawing.Size(16, 16);
+            this.lblDefenderIPCs.TabIndex = 15;
+            this.lblDefenderIPCs.Text = "0";
+            // 
+            // label87
+            // 
+            this.label87.AutoSize = true;
+            this.label87.Location = new System.Drawing.Point(648, 243);
+            this.label87.Name = "label87";
+            this.label87.Size = new System.Drawing.Size(32, 13);
+            this.label87.TabIndex = 14;
+            this.label87.Text = "IPCs:";
+            // 
+            // lblAttackerIPC
+            // 
+            this.lblAttackerIPC.AutoSize = true;
+            this.lblAttackerIPC.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAttackerIPC.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lblAttackerIPC.Location = new System.Drawing.Point(677, 97);
+            this.lblAttackerIPC.Name = "lblAttackerIPC";
+            this.lblAttackerIPC.Size = new System.Drawing.Size(16, 16);
+            this.lblAttackerIPC.TabIndex = 13;
+            this.lblAttackerIPC.Text = "0";
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(648, 99);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(32, 13);
+            this.label85.TabIndex = 12;
+            this.label85.Text = "IPCs:";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(98, 344);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(75, 23);
+            this.button7.TabIndex = 11;
+            this.button7.Text = "Simulate";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(625, 336);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 10;
+            this.button6.Text = "Clear";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // btnPredict
             // 
@@ -415,14 +561,14 @@
             this.btnPredict.Name = "btnPredict";
             this.btnPredict.Size = new System.Drawing.Size(75, 23);
             this.btnPredict.TabIndex = 9;
-            this.btnPredict.Text = "Predict";
+            this.btnPredict.Text = "Probability";
             this.btnPredict.UseVisualStyleBackColor = true;
             this.btnPredict.Click += new System.EventHandler(this.btnPredict_Click);
             // 
             // lblRounds
             // 
             this.lblRounds.AutoSize = true;
-            this.lblRounds.Location = new System.Drawing.Point(583, 340);
+            this.lblRounds.Location = new System.Drawing.Point(483, 347);
             this.lblRounds.Name = "lblRounds";
             this.lblRounds.Size = new System.Drawing.Size(0, 13);
             this.lblRounds.TabIndex = 8;
@@ -430,7 +576,7 @@
             // chkFullBattle
             // 
             this.chkFullBattle.AutoSize = true;
-            this.chkFullBattle.Location = new System.Drawing.Point(468, 340);
+            this.chkFullBattle.Location = new System.Drawing.Point(468, 327);
             this.chkFullBattle.Name = "chkFullBattle";
             this.chkFullBattle.Size = new System.Drawing.Size(95, 17);
             this.chkFullBattle.TabIndex = 7;
@@ -459,7 +605,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(236, 327);
+            this.button1.Location = new System.Drawing.Point(260, 327);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(175, 40);
             this.button1.TabIndex = 4;
@@ -552,6 +698,7 @@
             this.dcar.Name = "dcar";
             this.dcar.Size = new System.Drawing.Size(39, 20);
             this.dcar.TabIndex = 32;
+            this.dcar.ValueChanged += new System.EventHandler(this.dcar_ValueChanged);
             // 
             // dbat
             // 
@@ -559,6 +706,7 @@
             this.dbat.Name = "dbat";
             this.dbat.Size = new System.Drawing.Size(39, 20);
             this.dbat.TabIndex = 31;
+            this.dbat.ValueChanged += new System.EventHandler(this.dbat_ValueChanged);
             // 
             // ddes
             // 
@@ -566,6 +714,7 @@
             this.ddes.Name = "ddes";
             this.ddes.Size = new System.Drawing.Size(39, 20);
             this.ddes.TabIndex = 30;
+            this.ddes.ValueChanged += new System.EventHandler(this.ddes_ValueChanged);
             // 
             // dsub
             // 
@@ -573,6 +722,7 @@
             this.dsub.Name = "dsub";
             this.dsub.Size = new System.Drawing.Size(39, 20);
             this.dsub.TabIndex = 29;
+            this.dsub.ValueChanged += new System.EventHandler(this.dsub_ValueChanged);
             // 
             // label17
             // 
@@ -616,6 +766,7 @@
             this.dbom.Name = "dbom";
             this.dbom.Size = new System.Drawing.Size(39, 20);
             this.dbom.TabIndex = 24;
+            this.dbom.ValueChanged += new System.EventHandler(this.dbom_ValueChanged);
             // 
             // dfig
             // 
@@ -623,6 +774,7 @@
             this.dfig.Name = "dfig";
             this.dfig.Size = new System.Drawing.Size(39, 20);
             this.dfig.TabIndex = 23;
+            this.dfig.ValueChanged += new System.EventHandler(this.dfig_ValueChanged);
             // 
             // dtnk
             // 
@@ -630,6 +782,7 @@
             this.dtnk.Name = "dtnk";
             this.dtnk.Size = new System.Drawing.Size(39, 20);
             this.dtnk.TabIndex = 22;
+            this.dtnk.ValueChanged += new System.EventHandler(this.dtnk_ValueChanged);
             // 
             // dinf
             // 
@@ -637,6 +790,7 @@
             this.dinf.Name = "dinf";
             this.dinf.Size = new System.Drawing.Size(39, 20);
             this.dinf.TabIndex = 21;
+            this.dinf.ValueChanged += new System.EventHandler(this.dinf_ValueChanged);
             // 
             // label21
             // 
@@ -739,6 +893,7 @@
             this.acar.Name = "acar";
             this.acar.Size = new System.Drawing.Size(39, 20);
             this.acar.TabIndex = 15;
+            this.acar.ValueChanged += new System.EventHandler(this.acar_ValueChanged);
             // 
             // abat
             // 
@@ -754,6 +909,7 @@
             this.ades.Name = "ades";
             this.ades.Size = new System.Drawing.Size(39, 20);
             this.ades.TabIndex = 13;
+            this.ades.ValueChanged += new System.EventHandler(this.ades_ValueChanged);
             // 
             // asub
             // 
@@ -761,6 +917,7 @@
             this.asub.Name = "asub";
             this.asub.Size = new System.Drawing.Size(39, 20);
             this.asub.TabIndex = 12;
+            this.asub.ValueChanged += new System.EventHandler(this.asub_ValueChanged);
             // 
             // label11
             // 
@@ -804,6 +961,7 @@
             this.abom.Name = "abom";
             this.abom.Size = new System.Drawing.Size(39, 20);
             this.abom.TabIndex = 7;
+            this.abom.ValueChanged += new System.EventHandler(this.abom_ValueChanged);
             // 
             // afig
             // 
@@ -811,6 +969,7 @@
             this.afig.Name = "afig";
             this.afig.Size = new System.Drawing.Size(39, 20);
             this.afig.TabIndex = 6;
+            this.afig.ValueChanged += new System.EventHandler(this.afig_ValueChanged);
             // 
             // atnk
             // 
@@ -818,6 +977,7 @@
             this.atnk.Name = "atnk";
             this.atnk.Size = new System.Drawing.Size(39, 20);
             this.atnk.TabIndex = 5;
+            this.atnk.ValueChanged += new System.EventHandler(this.atnk_ValueChanged);
             // 
             // ainf
             // 
@@ -825,6 +985,7 @@
             this.ainf.Name = "ainf";
             this.ainf.Size = new System.Drawing.Size(39, 20);
             this.ainf.TabIndex = 4;
+            this.ainf.ValueChanged += new System.EventHandler(this.ainf_ValueChanged);
             // 
             // label10
             // 
@@ -868,7 +1029,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(731, 373);
+            this.tabPage2.Size = new System.Drawing.Size(731, 375);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Economy";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1144,7 +1305,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(731, 373);
+            this.tabPage3.Size = new System.Drawing.Size(731, 375);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Modifiers";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -2266,6 +2427,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.groupBox8);
             this.tabPage4.Controls.Add(this.groupBox7);
             this.tabPage4.Controls.Add(this.groupBox6);
             this.tabPage4.Controls.Add(this.groupBox5);
@@ -2273,22 +2435,115 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(731, 373);
+            this.tabPage4.Size = new System.Drawing.Size(731, 375);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Additional";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.label84);
+            this.groupBox8.Controls.Add(this.cmbFocus);
+            this.groupBox8.Controls.Add(this.lblPurchase);
+            this.groupBox8.Controls.Add(this.label83);
+            this.groupBox8.Controls.Add(this.numericUpDown6);
+            this.groupBox8.Location = new System.Drawing.Point(6, 138);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(188, 231);
+            this.groupBox8.TabIndex = 7;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Purchase Evaluator";
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Location = new System.Drawing.Point(15, 48);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(39, 13);
+            this.label84.TabIndex = 4;
+            this.label84.Text = "Focus:";
+            // 
+            // cmbFocus
+            // 
+            this.cmbFocus.FormattingEnabled = true;
+            this.cmbFocus.Items.AddRange(new object[] {
+            "Attack",
+            "Defend",
+            "Mobility",
+            "Naval Attack",
+            "Naval Defense",
+            "Carried-Based",
+            "Balanced"});
+            this.cmbFocus.Location = new System.Drawing.Point(60, 45);
+            this.cmbFocus.Name = "cmbFocus";
+            this.cmbFocus.Size = new System.Drawing.Size(99, 21);
+            this.cmbFocus.TabIndex = 3;
+            this.cmbFocus.SelectedIndexChanged += new System.EventHandler(this.cmbFocus_SelectedIndexChanged);
+            // 
+            // lblPurchase
+            // 
+            this.lblPurchase.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblPurchase.Location = new System.Drawing.Point(6, 79);
+            this.lblPurchase.Name = "lblPurchase";
+            this.lblPurchase.Size = new System.Drawing.Size(176, 136);
+            this.lblPurchase.TabIndex = 2;
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Location = new System.Drawing.Point(22, 21);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(32, 13);
+            this.label83.TabIndex = 1;
+            this.label83.Text = "IPCs:";
+            // 
+            // numericUpDown6
+            // 
+            this.numericUpDown6.Location = new System.Drawing.Point(60, 19);
+            this.numericUpDown6.Maximum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+            this.numericUpDown6.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDown6.Name = "numericUpDown6";
+            this.numericUpDown6.Size = new System.Drawing.Size(63, 20);
+            this.numericUpDown6.TabIndex = 0;
+            this.numericUpDown6.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDown6.ValueChanged += new System.EventHandler(this.numericUpDown6_ValueChanged);
+            this.numericUpDown6.Validated += new System.EventHandler(this.numericUpDown6_Validated);
+            // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.radBloodbath);
             this.groupBox7.Controls.Add(this.rdoNoLuck);
             this.groupBox7.Controls.Add(this.rdoLowLuck);
             this.groupBox7.Controls.Add(this.rdoDice);
-            this.groupBox7.Location = new System.Drawing.Point(6, 138);
+            this.groupBox7.Location = new System.Drawing.Point(200, 138);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(188, 91);
+            this.groupBox7.Size = new System.Drawing.Size(134, 118);
             this.groupBox7.TabIndex = 6;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Hit Calculation";
+            // 
+            // radBloodbath
+            // 
+            this.radBloodbath.AutoSize = true;
+            this.radBloodbath.Location = new System.Drawing.Point(18, 88);
+            this.radBloodbath.Name = "radBloodbath";
+            this.radBloodbath.Size = new System.Drawing.Size(73, 17);
+            this.radBloodbath.TabIndex = 3;
+            this.radBloodbath.TabStop = true;
+            this.radBloodbath.Text = "Bloodbath";
+            this.radBloodbath.UseVisualStyleBackColor = true;
             // 
             // rdoNoLuck
             // 
@@ -2326,23 +2581,58 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.numTarget);
+            this.groupBox6.Controls.Add(this.cmbOp);
             this.groupBox6.Controls.Add(this.flowDice);
             this.groupBox6.Controls.Add(this.label82);
             this.groupBox6.Controls.Add(this.numDice);
             this.groupBox6.Controls.Add(this.button5);
             this.groupBox6.Location = new System.Drawing.Point(340, 6);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(385, 126);
+            this.groupBox6.Size = new System.Drawing.Size(385, 361);
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Roll Dice";
+            // 
+            // numTarget
+            // 
+            this.numTarget.Location = new System.Drawing.Point(340, 30);
+            this.numTarget.Maximum = new decimal(new int[] {
+            6,
+            0,
+            0,
+            0});
+            this.numTarget.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numTarget.Name = "numTarget";
+            this.numTarget.Size = new System.Drawing.Size(39, 20);
+            this.numTarget.TabIndex = 5;
+            this.numTarget.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // cmbOp
+            // 
+            this.cmbOp.FormattingEnabled = true;
+            this.cmbOp.Items.AddRange(new object[] {
+            "<=",
+            ">="});
+            this.cmbOp.Location = new System.Drawing.Point(293, 29);
+            this.cmbOp.Name = "cmbOp";
+            this.cmbOp.Size = new System.Drawing.Size(41, 21);
+            this.cmbOp.TabIndex = 4;
             // 
             // flowDice
             // 
             this.flowDice.AutoScroll = true;
             this.flowDice.Location = new System.Drawing.Point(9, 59);
             this.flowDice.Name = "flowDice";
-            this.flowDice.Size = new System.Drawing.Size(370, 61);
+            this.flowDice.Size = new System.Drawing.Size(370, 288);
             this.flowDice.TabIndex = 3;
             // 
             // label82
@@ -2388,12 +2678,13 @@
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.White;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button4.Location = new System.Drawing.Point(31, 21);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(73, 76);
             this.button4.TabIndex = 0;
-            this.button4.Text = "0";
+            this.button4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -2415,18 +2706,20 @@
             // lblSneakHits
             // 
             this.lblSneakHits.AutoSize = true;
-            this.lblSneakHits.Location = new System.Drawing.Point(49, 99);
+            this.lblSneakHits.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSneakHits.Location = new System.Drawing.Point(57, 99);
             this.lblSneakHits.Name = "lblSneakHits";
-            this.lblSneakHits.Size = new System.Drawing.Size(13, 13);
+            this.lblSneakHits.Size = new System.Drawing.Size(16, 17);
             this.lblSneakHits.TabIndex = 4;
             this.lblSneakHits.Text = "0";
             // 
             // label81
             // 
             this.label81.AutoSize = true;
+            this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label81.Location = new System.Drawing.Point(15, 99);
             this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(28, 13);
+            this.label81.Size = new System.Drawing.Size(36, 17);
             this.label81.TabIndex = 3;
             this.label81.Text = "Hits:";
             // 
@@ -2469,13 +2762,23 @@
             // tabPage5
             // 
             this.tabPage5.AutoScroll = true;
+            this.tabPage5.Controls.Add(this.DiceLabel);
             this.tabPage5.Controls.Add(this.lblStats);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(731, 373);
+            this.tabPage5.Size = new System.Drawing.Size(731, 375);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Statistics";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // DiceLabel
+            // 
+            this.DiceLabel.Font = new System.Drawing.Font("Lucida Console", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DiceLabel.Location = new System.Drawing.Point(368, 19);
+            this.DiceLabel.Name = "DiceLabel";
+            this.DiceLabel.Size = new System.Drawing.Size(348, 110);
+            this.DiceLabel.TabIndex = 2;
+            this.DiceLabel.Text = "Dice Stats not available.";
             // 
             // lblStats
             // 
@@ -2496,16 +2799,6 @@
             // 
             this.fade2.Interval = 50;
             this.fade2.Tick += new System.EventHandler(this.fade2_Tick);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(625, 336);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 10;
-            this.button6.Text = "Clear";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // Form1
             // 
@@ -2631,10 +2924,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.ratnk)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rainf)).EndInit();
             this.tabPage4.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numTarget)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numDice)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -2876,6 +3173,26 @@
         private System.Windows.Forms.CheckBox chkRusHvyBomber;
         private System.Windows.Forms.CheckBox chkPZ;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.ComboBox cmbOp;
+        private System.Windows.Forms.NumericUpDown numTarget;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Label label83;
+        private System.Windows.Forms.NumericUpDown numericUpDown6;
+        private System.Windows.Forms.Label lblPurchase;
+        private System.Windows.Forms.Label label84;
+        private System.Windows.Forms.ComboBox cmbFocus;
+        private System.Windows.Forms.Label lblDefenderIPCs;
+        private System.Windows.Forms.Label label87;
+        private System.Windows.Forms.Label lblAttackerIPC;
+        private System.Windows.Forms.Label label85;
+        private System.Windows.Forms.Label lblAttackPower;
+        private System.Windows.Forms.Label label88;
+        private System.Windows.Forms.Label lblDefendPower;
+        private System.Windows.Forms.Label label89;
+        private DiceLabel DiceLabel;
+        private System.Windows.Forms.RadioButton radBloodbath;
+        private System.Windows.Forms.Button button8;
     }
 }
 
