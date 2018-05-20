@@ -40,6 +40,8 @@ namespace AAMaster
                 return (double)Hits / (Hits + Misses);
             }
         }
+
+        public int IPCLoss { get; set; }
     }
 
     public static class Type
@@ -115,12 +117,16 @@ namespace AAMaster
     public static class BattleCalculator
     {
         private static Random rand;
-        public static int RollDie()
+        public static int RollDie(bool weighted = false)
         {
-            if (rand == null)
-                rand = new Random();
+            Dice d;
 
-            int value = rand.Next(1, 7);
+            if (weighted)
+                d = new WeightedD6();
+            else
+                d = new D6();
+
+            int value = d.Roll();
 
             if (Die.Record)
                 Die.Rolls[value]++;
@@ -135,11 +141,12 @@ namespace AAMaster
             units = remain.ToArray();
         }
 
-        public static BattleResult FullBattle(Unit[] attacker, Unit[] defender, Func<Unit[], bool, int> calculation)
+        public static bool UseWeightedDice = false;
+
+        public static BattleResult FullBattle(Unit[] attacker, Unit[] defender, Func<Unit[], bool, int> calculation, bool border)
         {
             var b = new BattleResult();
             
-
             while (attacker.Length > 0 && defender.Length > 0 && UnitsThatCanFight(attacker, defender) && b.Rounds < 20)
             {
                 // Battleships and Destroyers only give supporting bombardment on the first round.
@@ -163,7 +170,7 @@ namespace AAMaster
                 int land_defend;
 
                 sub_attack = calculation(attacker.Where(x => x.Name == "Submarine").ToArray(), true);
-                sub_defend = calculation(defender.Where(x => x.Name == "Submarine").ToArray(), true);
+                sub_defend = calculation(defender.Where(x => x.Name == "Submarine").ToArray(), border);
 
                 b.AttackHits += sub_attack;
                 b.DefendHits += sub_defend;
@@ -188,9 +195,9 @@ namespace AAMaster
                 b.AttackHits += naval_attack;
                 b.AttackHits += land_attack;
 
-                air_defend = calculation(defender.Where(x => Type.Air(x.Name)).ToArray(), true);
-                naval_defend = calculation(defender.Where(x => Type.Naval(x.Name)).ToArray(), true);
-                land_defend = calculation(defender.Where(x => Type.Land(x.Name)).ToArray(), true);
+                air_defend = calculation(defender.Where(x => Type.Air(x.Name)).ToArray(), border);
+                naval_defend = calculation(defender.Where(x => Type.Naval(x.Name)).ToArray(), border);
+                land_defend = calculation(defender.Where(x => Type.Land(x.Name)).ToArray(), border);
 
                 b.DefendHits += air_defend;
                 b.DefendHits += naval_defend;
@@ -385,7 +392,7 @@ namespace AAMaster
                 {
                     for (int i = 0; i < u.Rolls; i++)
                     {
-                        if (RollDie() <= u.Attack)
+                        if (RollDie(UseWeightedDice) <= u.Attack)
                         {
                             hits++;
                         }
@@ -398,7 +405,7 @@ namespace AAMaster
                 {
                     for (int i = 0; i < u.Rolls; i++)
                     {
-                        if (RollDie() <= u.Defend)
+                        if (RollDie(UseWeightedDice) <= u.Defend)
                         {
                             hits++;
                         }

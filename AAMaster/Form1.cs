@@ -594,7 +594,7 @@ namespace AAMaster
             int off = 0;
             if (chkFullBattle.Checked)
             {
-                BattleResult b = BattleCalculator.FullBattle(Attacker.ToArray(), Defender.ToArray(), GetMethod());
+                BattleResult b = BattleCalculator.FullBattle(Attacker.ToArray(), Defender.ToArray(), GetMethod(), chkBorder.Checked);
 
                 def = b.AttackHits;
                 off = b.DefendHits;
@@ -603,7 +603,7 @@ namespace AAMaster
             else
             {
                 def = Calculate(Attacker.ToArray(), true);
-                off = Calculate(Defender.ToArray(), false);
+                off = Calculate(Defender.ToArray(), chkBorder.Checked ? true : false);
             }
 
             lblDefCasualties.Text = def.ToString();
@@ -750,7 +750,7 @@ namespace AAMaster
 
         private void button4_Click(object sender, EventArgs e)
         {
-            button4.Text = Die.Symbol(BattleCalculator.RollDie());
+            button4.Text = Die.Symbol(BattleCalculator.RollDie(chkWeighted.Checked));
             UpdateDiceStats();
             fade2.Enabled = true;
         }
@@ -762,7 +762,7 @@ namespace AAMaster
             {
                 Label l = new Label();
                 l.Font = new Font("Arial", 48);
-                int value = BattleCalculator.RollDie();
+                int value = BattleCalculator.RollDie(chkWeighted.Checked);
 
                 if (cmbOp.SelectedIndex == 0)
                 {
@@ -1030,6 +1030,16 @@ namespace AAMaster
             double attack_prob = Math.Round((attack_ratio / (attack_ratio + defend_ratio)) * 100);
             double defend_prob = Math.Round((defend_ratio / (attack_ratio + defend_ratio)) * 100);
 
+            int attack_lost_ipcs = Attacker
+                .OrderBy(x => x.Cost)
+                .Take(Attacker.Count - attack_survive)
+                .Sum(x => x.Cost);
+
+            int defend_lost_ipcs = Defender
+                .OrderBy(x => x.Cost)
+                .Take(Defender.Count - defend_survive)
+                .Sum(x => x.Cost);
+
             string outcome;
             if (attack_prob > defend_prob)
             {
@@ -1048,8 +1058,10 @@ namespace AAMaster
 Probable Outcome: {outcome}
 Attacker probability {attack_prob}%
 Attacker survivors:  {attack_survive}
+Attacker lost IPCs:  {attack_lost_ipcs}
 Defender probability {defend_prob}%
-Defender survivors:  {defend_survive} 
+Defender survivors:  {defend_survive}
+Defender lost IPCs:  {defend_lost_ipcs} 
 ";
 
             MessageBox.Show(message);
@@ -1241,16 +1253,46 @@ Defender survivors:  {defend_survive}
             Die.Record = false;
             for (int i = 0; i < 1000; i++)
             {
-                Battles.Add(BattleCalculator.FullBattle(Attacker.ToArray(), Defender.ToArray(), GetMethod()));
+                Battles.Add(BattleCalculator.FullBattle(Attacker.ToArray(), Defender.ToArray(), GetMethod(), chkBorder.Checked));
             }
             Die.Record = true;
 
-            var def_avg = Math.Ceiling(Battles.Average(x => x.DefendHits));
-            var atk_avg = Math.Ceiling(Battles.Average(x => x.AttackHits));
-            var rounds = Math.Ceiling(Battles.Average(x => x.Rounds));
+            var def_avg = (int)Math.Ceiling(Battles.Average(x => x.DefendHits));
+            var atk_avg = (int)Math.Ceiling(Battles.Average(x => x.AttackHits));
+            var rounds = (int)Math.Ceiling(Battles.Average(x => x.Rounds));
 
-            MessageBox.Show($"Avg. Atk. Hits: {atk_avg}\nAvg. Def. Hits: {def_avg}\nAvg. # rounds: {rounds}\n");
+            int attack_survive = Max(0, Attacker.Count - def_avg);
+            int defend_survive = Max(0, Defender.Count - atk_avg);
 
+            int attack_lost_ipcs = Attacker
+                .OrderBy(x => x.Cost)
+                .Take(Attacker.Count - attack_survive)
+                .Sum(x => x.Cost);
+
+            int defend_lost_ipcs = Defender
+                .OrderBy(x => x.Cost)
+                .Take(Defender.Count - defend_survive)
+                .Sum(x => x.Cost);
+
+            string message =
+$@"
+Avg. Atk. Hits: {atk_avg}
+      IPC Loss: {attack_lost_ipcs}
+Avg. Def. Hits: {def_avg}
+      IPC Loss: {defend_lost_ipcs}
+Avg.  # rounds: {rounds}";
+
+            MessageBox.Show(message);
+
+        }
+
+        private int Max(int a, int b)
+        {
+            if (a > b)
+            {
+                return a;
+            }
+            return b;
         }
 
         private void groupBox3_Enter(object sender, EventArgs e)
@@ -1439,6 +1481,7 @@ Defender survivors:  {defend_survive}
 
             lblAttackerIPC.Text = Attacker.Sum(x => x.Cost).ToString();
             lblAttackPower.Text = Attacker.Sum(x => x.Attack * x.Rolls).ToString();
+            lblAtkUnits.Text = Attacker.Sum(x => x.Hits).ToString();
         }
 
         private void DefenderIPCs()
@@ -1447,6 +1490,7 @@ Defender survivors:  {defend_survive}
 
             lblDefenderIPCs.Text = Defender.Sum(x => x.Cost).ToString();
             lblDefendPower.Text = Defender.Sum(x => x.Defend * x.Rolls).ToString();
+            lblDefUnits.Text = Defender.Sum(x => x.Hits).ToString();
         }
 
         private void atnk_ValueChanged(object sender, EventArgs e)
@@ -1608,6 +1652,11 @@ Defender survivors:  {defend_survive}
             fade2.Enabled = true;
             UpdateStats();
             UpdateDiceStats();
+        }
+
+        private void chkWeighted_CheckedChanged(object sender, EventArgs e)
+        {
+            BattleCalculator.UseWeightedDice = chkWeighted.Checked;
         }
     }
 

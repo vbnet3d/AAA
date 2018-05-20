@@ -51,6 +51,7 @@
             this.lblCasualties = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.chkBorder = new System.Windows.Forms.CheckBox();
             this.dinfmod = new System.Windows.Forms.Label();
             this.cmbDefender = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -245,6 +246,8 @@
             this.label34 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label86 = new System.Windows.Forms.Label();
+            this.chkWeighted = new System.Windows.Forms.CheckBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label84 = new System.Windows.Forms.Label();
             this.cmbFocus = new System.Windows.Forms.ComboBox();
@@ -277,6 +280,10 @@
             this.lblStats = new System.Windows.Forms.Label();
             this.fade = new System.Windows.Forms.Timer(this.components);
             this.fade2 = new System.Windows.Forms.Timer(this.components);
+            this.lblAtkUnits = new System.Windows.Forms.Label();
+            this.label91 = new System.Windows.Forms.Label();
+            this.lblDefUnits = new System.Windows.Forms.Label();
+            this.label92 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -413,6 +420,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lblDefUnits);
+            this.tabPage1.Controls.Add(this.label92);
+            this.tabPage1.Controls.Add(this.lblAtkUnits);
+            this.tabPage1.Controls.Add(this.label91);
             this.tabPage1.Controls.Add(this.button8);
             this.tabPage1.Controls.Add(this.lblDefendPower);
             this.tabPage1.Controls.Add(this.label89);
@@ -635,6 +646,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.chkBorder);
             this.groupBox4.Controls.Add(this.dinfmod);
             this.groupBox4.Controls.Add(this.cmbDefender);
             this.groupBox4.Controls.Add(this.label16);
@@ -660,6 +672,16 @@
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Defender";
+            // 
+            // chkBorder
+            // 
+            this.chkBorder.AutoSize = true;
+            this.chkBorder.Location = new System.Drawing.Point(152, 81);
+            this.chkBorder.Name = "chkBorder";
+            this.chkBorder.Size = new System.Drawing.Size(96, 17);
+            this.chkBorder.TabIndex = 21;
+            this.chkBorder.Text = "Border Contest";
+            this.chkBorder.UseVisualStyleBackColor = true;
             // 
             // dinfmod
             // 
@@ -2427,6 +2449,8 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label86);
+            this.tabPage4.Controls.Add(this.chkWeighted);
             this.tabPage4.Controls.Add(this.groupBox8);
             this.tabPage4.Controls.Add(this.groupBox7);
             this.tabPage4.Controls.Add(this.groupBox6);
@@ -2439,6 +2463,27 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Additional";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label86
+            // 
+            this.label86.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.label86.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label86.Location = new System.Drawing.Point(218, 286);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(115, 32);
+            this.label86.TabIndex = 9;
+            this.label86.Text = "Increases the chance of a number from 1-3 by 4%";
+            // 
+            // chkWeighted
+            // 
+            this.chkWeighted.AutoSize = true;
+            this.chkWeighted.Location = new System.Drawing.Point(218, 262);
+            this.chkWeighted.Name = "chkWeighted";
+            this.chkWeighted.Size = new System.Drawing.Size(72, 17);
+            this.chkWeighted.TabIndex = 8;
+            this.chkWeighted.Text = "Weighted";
+            this.chkWeighted.UseVisualStyleBackColor = true;
+            this.chkWeighted.CheckedChanged += new System.EventHandler(this.chkWeighted_CheckedChanged);
             // 
             // groupBox8
             // 
@@ -2800,6 +2845,46 @@
             this.fade2.Interval = 50;
             this.fade2.Tick += new System.EventHandler(this.fade2_Tick);
             // 
+            // lblAtkUnits
+            // 
+            this.lblAtkUnits.AutoSize = true;
+            this.lblAtkUnits.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAtkUnits.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblAtkUnits.Location = new System.Drawing.Point(677, 134);
+            this.lblAtkUnits.Name = "lblAtkUnits";
+            this.lblAtkUnits.Size = new System.Drawing.Size(16, 16);
+            this.lblAtkUnits.TabIndex = 22;
+            this.lblAtkUnits.Text = "0";
+            // 
+            // label91
+            // 
+            this.label91.AutoSize = true;
+            this.label91.Location = new System.Drawing.Point(640, 136);
+            this.label91.Name = "label91";
+            this.label91.Size = new System.Drawing.Size(34, 13);
+            this.label91.TabIndex = 21;
+            this.label91.Text = "Units:";
+            // 
+            // lblDefUnits
+            // 
+            this.lblDefUnits.AutoSize = true;
+            this.lblDefUnits.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDefUnits.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblDefUnits.Location = new System.Drawing.Point(677, 281);
+            this.lblDefUnits.Name = "lblDefUnits";
+            this.lblDefUnits.Size = new System.Drawing.Size(16, 16);
+            this.lblDefUnits.TabIndex = 24;
+            this.lblDefUnits.Text = "0";
+            // 
+            // label92
+            // 
+            this.label92.AutoSize = true;
+            this.label92.Location = new System.Drawing.Point(640, 283);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(34, 13);
+            this.label92.TabIndex = 23;
+            this.label92.Text = "Units:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2924,6 +3009,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.ratnk)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.rainf)).EndInit();
             this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
@@ -3193,6 +3279,13 @@
         private DiceLabel DiceLabel;
         private System.Windows.Forms.RadioButton radBloodbath;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.CheckBox chkBorder;
+        private System.Windows.Forms.CheckBox chkWeighted;
+        private System.Windows.Forms.Label label86;
+        private System.Windows.Forms.Label lblDefUnits;
+        private System.Windows.Forms.Label label92;
+        private System.Windows.Forms.Label lblAtkUnits;
+        private System.Windows.Forms.Label label91;
     }
 }
 
